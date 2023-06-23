@@ -1,0 +1,5 @@
+services:
+  msp430_rs:
+    build: './linux/'
+    container_name: "msp430_rs_env"
+    image: "enmanuelparache/msp430_rs_env:latest"
