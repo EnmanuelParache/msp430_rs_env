@@ -85,6 +85,9 @@ RUN echo "export PATH=$PATH:$HOME/.ti/msp430-gcc/bin:$HOME/.cargo/bin" > .bashrc
 # Install nightly 
 RUN .cargo/bin/rustup install nightly
 
+# Create symbolic link for libmsp430.so
+RUN sudo ln -sf /home/developer/.ti/msp430-gcc/bin/libmsp430.so /usr/lib/libmsp430.so
+
 # Set nightly 
 # RUN rustup default nightly
 
