@@ -7,8 +7,8 @@ ARG TI_MSP430_DRIVER_COMPRESSED=${TI_MSP430_DRIVER}-linux64.zip
 ARG TARGET=msp430-none-elf
 ARG TI_INSTALL_DIR=/home/${USERNAME}/.ti/
 
-# bash is default shell on ubuntu
-# SHELL ["/bin/bash"]
+# Use bash as shell
+SHELL ["/bin/bash", "-c"]
 
 # Update 
 RUN apt-get update -y
@@ -81,6 +81,9 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --ta
 
 # Create bash profile including msp430-gcc
 RUN echo "export PATH=$PATH:$HOME/.ti/msp430-gcc/bin:$HOME/.cargo/bin" > .bashrc
+
+# Install nightly 
+RUN .cargo/bin/rustup install nightly
 
 # Set nightly 
 # RUN rustup default nightly
