@@ -1,5 +1,6 @@
 FROM ubuntu:latest
 ARG USERNAME=developer
+ARG UID=1001
 ARG MSP430_GCC=msp430-gcc-full-linux-x64-installer-9.3.1.2
 ARG MSP430_GCC_COMPRESSED=${MSP430_GCC}.7z
 ARG TI_MSP430_DRIVER=ti_msp430driver_setup_1.0.1.2
@@ -23,7 +24,7 @@ RUN apt-get install -y libc6-i386 libusb-0.1-4 udev unzip curl build-essential s
 WORKDIR /home
 
 # Create user
-RUN adduser --system ${USERNAME} --shell /bin/bash
+RUN adduser --disabled-password --system --shell /bin/bash --uid ${UID} ${USERNAME}
 
 # Create group for usb
 RUN addgroup usb
