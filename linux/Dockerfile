@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 ARG USERNAME=developer
 ARG UID=1001
 ARG MSP430_GCC=msp430-gcc-full-linux-x64-installer-9.3.1.2
