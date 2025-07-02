@@ -90,10 +90,10 @@ RUN .cargo/bin/rustup install nightly
 RUN sudo ln -sf /home/developer/.ti/msp430-gcc/bin/libmsp430.so /usr/lib/libmsp430.so
 
 # Set nightly 
-# RUN rustup default nightly
+# RUN .cargo/bin/rustup default nightly
 
 # Set rust-src
-# RUN rustup component add rust-src
+RUN .cargo/bin/rustup +nightly component add rust-src
 
 # Add msp430-none-elf
 # RUN rustup target add msp430-none-elf
