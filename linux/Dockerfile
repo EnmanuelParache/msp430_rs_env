@@ -7,6 +7,7 @@ ARG TI_MSP430_DRIVER=ti_msp430driver_setup_1.0.1.2
 ARG TI_MSP430_DRIVER_COMPRESSED=${TI_MSP430_DRIVER}-linux64.zip
 ARG TARGET=msp430-none-elf
 ARG TI_INSTALL_DIR=/home/${USERNAME}/.ti/
+ARG TOOLCHAIN=nightly-2025-06-25
 
 # Use bash as shell
 SHELL ["/bin/bash", "-c"]
@@ -83,17 +84,18 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --ta
 # Create bash profile including msp430-gcc
 RUN echo "export PATH=$PATH:$HOME/.ti/msp430-gcc/bin:$HOME/.cargo/bin" > .bashrc
 
-# Install nightly 
-RUN .cargo/bin/rustup install nightly
 
 # Create symbolic link for libmsp430.so
 RUN sudo ln -sf /home/developer/.ti/msp430-gcc/bin/libmsp430.so /usr/lib/libmsp430.so
 
-# Set nightly 
-# RUN .cargo/bin/rustup default nightly
+# Install latest nightly that supports MSP430 
+RUN .cargo/bin/rustup install ${TOOLCHAIN}
 
-# Set rust-src
-RUN .cargo/bin/rustup +nightly component add rust-src
+# Install rust-src for it
+RUN .cargo/bin/rustup component add --toolchain ${TOOLCHAIN} rust-src
+
+# Set toolchain as default
+RUN .cargo/bin/rustup default ${TOOLCHAIN}
 
 # Add msp430-none-elf
 # RUN rustup target add msp430-none-elf
